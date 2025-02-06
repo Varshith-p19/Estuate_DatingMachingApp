@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sign Up - Dating App</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			text-align: center;
+			background-color: #f8f8f8;
+		}
+
+		.header {
+			background-color: #ff4d6d;
+			color: white;
+			padding: 20px;
+			font-size: 24px;
+			font-weight: bold;
+		}
+
+		.signup-container {
+			margin: 50px auto;
+			padding: 20px;
+			width: 300px;
+			background: white;
+			border-radius: 10px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+
+		input {
+			display: block;
+			width: 90%;
+			padding: 10px;
+			margin: 10px auto;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+		}
+
+		.signup-btn {
+			background-color: #ff4081;
+			color: white;
+			padding: 10px;
+			width: 100%;
+			border: none;
+			cursor: pointer;
+			border-radius: 5px;
+		}
+
+		.form-group {
+			margin-bottom: 20px;
+		}
+
+		.form-label {
+			font-weight: bold;
+			margin-bottom: 10px;
+			display: inline-block;
+		}
+
+		.form-check {
+			display: inline-block;
+			margin-right: 20px;
+		}
+
+		.form-check input {
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="header">Welcome to LoveConnect</div>
+
+	<div class="signup-container">
+		<h2>Sign Up</h2>
+		<th:block th:if="${session.succMsg}">
+			<p style="color: green;" class="text-success fs-bold text-center">[[${session.succMsg}]]</p>
+			<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+		</th:block>
+
+		<th:block th:if="${session.errorMsg}">
+			<p style="color: red;" class="text-danger fs-bold text-center">[[${session.succMsg}]]</p>
+			<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+		</th:block>
+
+		<form action="/saveUser" method="POST" enctype="multipart/form-data">
+			<input type="text" placeholder="Full Name" name="name" required>
+
+			<div class="form-group">
+				<label for="gender" class="form-label" name="gender">Gender:</label><br>
+				<div class="form-check">
+					<input type="radio" id="male" name="gender" value="male" checked>
+					<label for="male">Male</label>
+				</div>
+				<div class="form-check">
+					<input type="radio" id="female" name="gender" value="female">
+					<label for="female">Female</label>
+				</div>
+			</div>
+
+
+			<input type="number" placeholder="Age" name="age" min="18" required>
+
+			<input type="text" placeholder="Interests" name="interests" required>
+
+
+			<button class="signup-btn">Add</button>
+		</form>
+	</div>
+
+</body>
+
+</html>
